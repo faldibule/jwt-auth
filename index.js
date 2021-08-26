@@ -10,7 +10,8 @@ const flash = require('connect-flash')
 const expressLayouts = require("express-ejs-layouts");
 const auth = require("./route/authRoute");
 const post = require("./route/postRoute");
-const user = require('./route/userRoute')
+const user = require('./route/userRoute');
+const comment = require('./route/commentRoute')
 const getUserByToken = require("./middleware/getUserByToken");
 const cekNav = require("./middleware/cekNav");
 
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", auth);
 app.use(post);
+app.use(comment)
 app.use(user)
 app.listen(port, () => {
   console.log(`Connected to port ${port}`);

@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const Post = require("../models/post");
 const Tag = require("../models/tag");
+const Comment = require('../models/comment')
 // const fs = require("fs");
 const cloudinary = require('../utils/cloudinary')
 const moment = require('moment'); 
@@ -29,6 +30,7 @@ const PostController = {
     try {
       const cekNav = res.locals.nav;
       const posts = await Post.find()
+        .sort({ _id: -1 })
         .populate({ path: "tags", select: "tag" })
         .populate({ path: "user", select: ["nama", "email", "image"] })
         .exec()
@@ -248,6 +250,7 @@ const PostController = {
   detail: async (req, res, next) => {
     try {
       const cekNav = res.locals.nav;
+      const comments = await Comment.find({post:req.params.id}).populate({path: 'user', select: ['nama', 'image']})
       const post = await Post.findOne({ _id: req.params.id })
         .populate({ path: "tags", select: "tag" })
         .populate({ path: "user", select: ["nama", "email", "image"] })
@@ -260,7 +263,8 @@ const PostController = {
         post,
         cek,
         cekNav,
-        createdAt
+        createdAt,
+        comments
       });
     } catch (err) {
       console.log(err);
