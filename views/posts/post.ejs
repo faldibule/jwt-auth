@@ -30,7 +30,9 @@
             <hr />
             <a href="/post/detail/<%= post.id  %>" class="text-dark" style = "text-decoration: none;"><h5 class="card-title"><%= post.title %></h5></a>
             <p class="text-dark"><%= post.body.substring(0, post.body.length * 0.2) %> . . . <a href="/post/detail/<%= post.id  %>" class="text-dark">Read More</a>  </p>
-            <p align='right' class="text-secondary"><%= createdAt[i] %></p>
+          </div>
+          <div class="card-footer">
+            <p align='right' class="text-muted"><%= createdAt[i] %></p>
           </div>
         </div>
       </div>
