@@ -7,7 +7,7 @@ const methodOverride = require("method-override");
 const PostController = require("../controller/postController");
 const cekNav = require("../middleware/cekNav");
 const upload = require("../middleware/multerConfig");
-const postValidator = require('../middleware/postvalidator')
+const postValidator = require('../middleware/postValidator')
 const { body, check } = require('express-validator');
 
 

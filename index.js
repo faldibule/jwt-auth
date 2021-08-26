@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require('dotenv')
 dotenv.config()
 const port = process.env.PORT || 3000;
-const verifyToken = require("./middleware/verifyToken");
+// const verifyToken = require("./middleware/verifyToken");
 const cookie = require("cookie-parser");
 const session = require('express-session')
 const flash = require('connect-flash')
