@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <% if (typeof errors != 'undefined') { %>
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <% errors.forEach(err => { %>
+                <li><%= err.msg %> </li>
+                <% }) %>
+            </ul>
+        </div>
+        <% } %>
+      <form action="/post" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Title</label>
+          <input type="text" name="title" class="form-control" value="<%= old.title || null %>" required />
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Body</label>
+          <textarea name="body" id="" cols="30" rows="10"><%= old.body || null %></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Category</label>
+          <select name="category" class="form-control">
+            <% category.forEach(element => { %>
+              <% if (element == old.category) { %>
+                <option value="<%= element %>" selected><%= element %> </option>
+              <% }else{ %>
+                <option value="<%= element %>"><%= element %> </option>
+              <% } %> 
+            <% }) %>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Tags</label>
+          <select name="tags[]" class="form-control select2" aria-label="Default select example" multiple="multiple">
+            <% for(let i = 0; i < tags.length; i++){ %>
+              <% if (typeof old.tags != 'undefined') { %>
+                <% if(tags[i].tag == old.tags[x]) {%>
+                  <option value="<%= tags[i].tag %>" selected> <%= tags[i].tag %></option>
+                  <% x++ %> 
+                <% }else{ %>
+                  <option value="<%= tags[i].tag %>"> <%= tags[i].tag %></option>
+                <% } %>
+              <% } %> 
+              <option value="<%= tags[i].tag %>"> <%= tags[i].tag %></option>
+          <% } %> 
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Upload Images <span class="text-danger tex-small">(Tidak Wajib)</span></label>
+          <input type="file" name="image" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".select2").select2({
+      placeholder: "Pilih Tags",
+    });
+  });
+</script>

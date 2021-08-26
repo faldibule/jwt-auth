@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <% if (typeof errors != 'undefined') { %>
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <% errors.forEach(err => { %>
+                <li><%= err.msg %> </li>
+                <% }) %>
+            </ul>
+        </div>
+        <% } %>
+      <form action="/post?_method=PUT" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="postId" value="<%= old.postId || post._id %>">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Title</label>
+          <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%= old.title || post.title %>" />
+        </div> 
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Body</label>
+          <textarea name="body" id="" cols="30" rows="10"><%= old.body || post.body %></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Category</label>
+          <select class="form-control" name="category">
+            <% category.forEach(element => { %>
+              <% if (old) { %>
+                <% if(element == old.category) { %>
+                  <option value="<%= element %>" selected><%= element %></option>
+                <% }else{ %>  
+                  <option value="<%= element %>"><%= element %></option>
+                <% } %> 
+              <% }else{ %>
+                <% if(element == post.category) { %>
+                  <option value="<%= element %>" selected><%= element %></option>
+                <% }else{ %>  
+                  <option value="<%= element %>"><%= element %></option>
+                <% } %> 
+              <% } %> 
+              
+            <% }) %>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Tags</label>
+          <select name="tags[]" class="form-control select2" aria-label="Default select example" multiple="multiple">
+            <% if (typeof old.tags != 'undefined') { %>
+              <% old.tags.forEach(element => { %>
+                <option selected value="<%= element  %>"><%= element %></option>
+              <% }) %>
+              <% unselected.forEach(element => { %>
+                <option  value="<%= element  %>"><%= element %></option>
+              <% }) %>   
+            <% }else{ %> 
+              <% post.tags.forEach(element => { %>
+                <option selected value="<%= element.tag  %>"><%= element.tag %></option>
+              <% }) %>
+              <% unselected.forEach(element => { %>
+                <option  value="<%= element  %>"><%= element %></option>
+              <% }) %>
+
+            <% } %> 
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Upload Images</label>
+          <input type="file" name="image" class="form-control" value="/upload/img/<%= post.image %>" />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".select2").select2({
+      placeholder: "Pilih Tags",
+    });
+  });
+</script>

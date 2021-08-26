@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row-fluid">
+    <div class="col-md-8 offset-md-2 align-self-center">
+      <a class="btn btn-primary" href="/post/form-post"><i class="bi bi-plus-square"></i> Add Post</a>
+      <form class="d-flex mt-4" action="/post/search" method="get">
+        <input class="form-control me -2" name="search" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-dark" type="submit">Search</button>
+      </form>
+      <% if (msg.length > 0) { %>
+        <div class="alert alert-success  mt-3" role="alert">
+          <%= msg %> 
+        </div>
+      <% } %>
+    </div>
+  </div>
+  
+  <% if (posts.length != 0) { %> <% posts.forEach((post, i) => { %>
+  <div class="row-fluid my-3">
+    <div class="col-md-6 offset-md-3 align-self-center">
+        <div class="card">
+          <div class="card-body">
+            <img style="height: 200px; object-fit:cover; object-position: center; " src="<%= post.image  %>" class="card-img-top" alt="..." />
+            <div class="media my-3 d-flex">
+              <img width="40" style="height: 40px; object-fit:cover; object-position: center; " class="rounded-circle mt-2 me-2" src="<%= post.user.image %>" />
+              <div class="media-body">
+                <div class=""><%= post.user.nama %></div>
+                <%= post.user.email %>
+              </div> 
+            </div>
+            <hr />
+            <a href="/post/detail/<%= post.id  %>" class="text-dark" style = "text-decoration: none;"><h5 class="card-title"><%= post.title %></h5></a>
+            <p class="text-dark"><%= post.body.substring(0, post.body.length * 0.2) %> . . . <a href="/post/detail/<%= post.id  %>" class="text-dark">Read More</a>  </p>
+            <p align='right' class="text-secondary"><%= createdAt[i] %></p>
+          </div>
+        </div>
+      </div>
+      <% }) %> 
+      <% }else{ %>
+        <div class="alert alert-danger mt-3" role="alert">
+          Post Kosong!
+        </div>
+      <% } %> 
+    </div>
+  </div>

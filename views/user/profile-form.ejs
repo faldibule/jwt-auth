@@ -1,0 +1,137 @@
+<div class="row">
+    <div class="col text-center mt-3">
+        <img style="width: 200px; height: 200px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle" src="<%= user.image %>" alt="">
+        <form action="/profile/foto?_method=PUT" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="userId" value="<%= user.id %>">
+            <input type="file" name="image" id="imgupload" style="display:none"  onchange="form.submit()"/>
+        </form>
+        <div class="d-flex justify-content-center mt-2">
+            <button class="btn btn-sm btn-primary me-3" id="OpenImgUpload"><i class="bi bi-person"></i> Change Profile Picture</button>
+            <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#editProfile">
+            Edit Profile
+            </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPassword">
+            Ganti Password
+            </button>
+        </div>
+        <h1 class="display-4"><%= user.nama  %></h1>
+        <p class="lead"><%= user.email %> </p>
+        <p class="text-secondary">You Have <%= user.posts.length %> Post</p>
+    </div>
+</div>
+<div class="row my-3">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <% if (typeof errors != 'undefined') { %>
+            <div class="alert alert-danger text-center" role="alert">
+                <p>Terdapat Kesalahan, pastikan anda mengisi form dengan benar</p>
+            </div>
+        <% } %>
+        <% if (msg.length > 0) { %>
+            <div class="alert alert-success text-center" role="alert">
+              <%= msg %> 
+            </div>
+        <% } %>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+
+
+
+
+  
+  <!-- Modal edit Profil -->
+  <div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Change Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <% if (typeof errors != 'undefined') { %>
+                <div class="alert alert-danger text-center" role="alert">
+                    <ul>
+                        <% errors.forEach(err => { %>
+                        <li><%= err.msg %> </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+          <form action="/profile?_method=PUT" method="post">
+            <input type="hidden" name="oldEmail" value="<%= user.email %>">
+            <input type="hidden" name="userId" value="<%= user.id || old.userId %>">
+            <div class="input-block">
+                <label class="form-label">Nama</label>
+                <input name="nama" class="form-control" type="text" value="<%= old.nama || user.nama%>" required />
+              </div>
+              <div class="input-block">
+                <label class="form-label" >E-mail</label>
+                <input name="email" class="form-control" type="email" value="<%= old.email || user.email %>" required />
+              </div>
+              <div class="input-block">
+                <label class="form-label">Password for Confirm</label>
+                <input name="password" class="form-control" type="password"  required />
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- Modal edit Password -->
+  <div class="modal fade" id="editPassword" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <% if (typeof errors != 'undefined') { %>
+                <div class="alert alert-danger text-center" role="alert">
+                    <ul>
+                        <% errors.forEach(err => { %>
+                        <li><%= err.msg %> </li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+          <form action="/profile/password?_method=PUT" method="post">
+            
+            <input type="hidden" name="userId" value="<%= user.id || old.userId %>">
+              <div class="input-block">
+                <label class="form-label">New Password</label>
+                <input name="n_password" class="form-control" type="password"  required />
+              </div>
+              <div class="input-block">
+                <label class="form-label">Confirm New Password</label>
+                <input name="r_password" class="form-control" type="password"  required />
+              </div>
+              <div class="input-block">
+                <label class="form-label">Old Password for Confirm</label>
+                <input name="password" class="form-control" type="password"  required />
+              </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+<script>
+    $('#OpenImgUpload').click(function(){ $('#imgupload').trigger('click'); });
+</script>

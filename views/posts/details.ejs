@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <img style="height: 500px; object-fit: cover; object-position: center" src="<%= post.image %>" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title"><%= post.title %></h5>
+          <div class="text-secondary"><a href="" class="text-secondary"><%= post.category %> </a> · <%= createdAt %></div>
+          <hr />
+          <div class="media my-3 d-flex">
+            <img width="60" class="rounded-circle me-3" src="https://www.gravatar.com/avatar/6de1059db733b73a06cbf1d4bb8eaeb5?d=mp&amp;s=150" />
+            <div class="media-body">
+              <div class=""><%= post.user.nama %></div>
+              <%= post.user.email %>
+            </div> 
+          </div>
+          <hr />
+          <p class="card-text"><%= post.body %></p>
+          <div class="text-secondary mb-2"><% post.tags.forEach(tag => { %> #<%= tag.tag %> <% }) %></div>
+          <% if (cek) { %>
+          <div class="col-md-6 d-flex">
+            <form action="/post?_method=DELETE" method="post">
+              <input type="hidden" name="id" value="<%= post._id %>" />
+              <button onclick="return confirm('Yakin ?')" type="submit" class="btn btn-sm btn-danger me-3">Delete</button>
+            </form>
+            <a href="/post/update/<%= post.id  %>" class="btn btn-sm btn-success">Update</a>
+          </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+  <div class="row"></div>
+</div>
