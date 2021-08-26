@@ -9,7 +9,7 @@
           <div class="text-secondary"><a href="" class="text-secondary"><%= post.category %> </a> · <%= createdAt %></div>
           <hr />
           <div class="media my-3 d-flex">
-            <img width="60" class="rounded-circle me-3" src="https://www.gravatar.com/avatar/6de1059db733b73a06cbf1d4bb8eaeb5?d=mp&amp;s=150" />
+            <img width="60" class="rounded-circle me-3" src="<%= post.user.image %>" />
             <div class="media-body">
               <div class=""><%= post.user.nama %></div>
               <%= post.user.email %>
