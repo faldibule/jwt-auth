@@ -26,19 +26,17 @@
             <a href="/post/update/<%= post.id  %>" class="btn btn-sm btn-success">Update</a>
           </div>
           <% } %>
-        </div>
-        <div class="card-footer">
+          <hr>
           <!-- comment -->
-          <div class="bg-light">
+          <div class="bg-light card-text">
             <p><%= comments.length %> Komentar</p>
             <% comments.forEach(element => { %>
-              <div class="comment-warp d-flex">
-                <img style="width: 50px; height: 50px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle" src="<%= element.user.image %>" alt="">
-                <div class="comment-body">
+              <div class="comment-warp d-flex card-text">
                   <% if (user.id == post.user._id || user.id == element.user._id) { %>
-                    <div class="dropup">
-                      <p class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        <span class="fw-bold"><%= element.user.nama %></span> <br><span class="fw-normal"><%= element.body %></span>
+                    <div class="card-text dropup d-flex">
+                      <img style="width: 50px; height: 50px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle" src="<%= element.user.image %>" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      <p class="card-text">
+                        <span class="fw-bold"><%= element.user.nama %> </span> <br> <span class="fw-normal"><%= element.body  %></span>
                       </p>
                       <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuLink">
                         <li><form action="/comment?_method=DELETE" method="post" class="dropwdown-item">
@@ -51,25 +49,29 @@
                   <% }else{ %>
                     <p><span class="fw-bold"><%= element.user.nama %></span> <br><span class="fw-normal"><%= element.body %></span></p>
                   <% } %> 
-                </div>
                 
               </div>
             
             <% }) %>
-            <div class="">
+            <div class="comment-form">
               
               <form action="/comment" method="post" class="pt-1">
                 <input type="hidden" name="postId" value="<%= post.id %>">
                 <input type="hidden" name="userId" value="<%= user.id %>">
                 <div class="input-group mb-3">
                   <img style="width: 50px; height: 50px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle" src="<%= user.image %>" alt="">
-                  <input type="text" class="form-control bg-light" aria-describedby="button-addon2" id="inputtext" name="body">
-                  <button class="btn btn-sm btn-outline-secondary" type="submit" id="button-addon2"><i class="bi bi-signpost-fill"></i> Post</button>
+                  <input type="text" class="form-control bg-light rounded-pill" aria-describedby="button-addon2" id="inputtext" name="body">
+                  <button class="btn btn-sm btn-outline-secondary rounded-pill" type="submit" id="button-addon2"><i class="bi bi-signpost-fill"></i> Post</button>
                 </div>
               </form>
             </div>
           </div>
+
         </div>
+        <div class="card-footer">
+          
+        </div>
+
       </div> 
     </div>
   </div>
