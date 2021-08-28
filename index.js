@@ -45,6 +45,10 @@ app.use("/auth", auth);
 app.use(post);
 app.use(comment)
 app.use(user)
+
+app.use((req, res) => {
+  res.send('Page Not Found');
+})
 app.listen(port, () => {
   console.log(`Connected to port ${port}`);
 });
