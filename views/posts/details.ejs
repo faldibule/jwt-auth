@@ -15,7 +15,7 @@
             </div> 
           </div>
           <hr />
-          <p class="card-text"><%= post.body %></p>
+          <p class="card-text"><%- post.body %></p>
           <div class="text-secondary mb-2"><% post.tags.forEach(tag => { %> #<%= tag.tag %> <% }) %></div>
           <% if (cek) { %>
           <div class="d-flex">

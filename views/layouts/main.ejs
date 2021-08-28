@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,6 +21,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
     integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
+    <!-- WYISWYG  -->
+    <script src="https://cdn.tiny.cloud/1/05pv8rpc6j4uk7zq2v4qo4r5y3cowwyre6thxmjqrd5vmwq0/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+      tinymce.init({
+        selector: '#textareaBody'
+      });
+    </script>
     <!-- My CSS -->
     <link rel="stylesheet" href="/css/style.css">
     <title><%= title %></title>

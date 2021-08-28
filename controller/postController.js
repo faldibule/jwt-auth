@@ -8,6 +8,7 @@ const moment = require('moment');
 const { validationResult } = require("express-validator");
 const escapeHtml = require('escape-html');
 const { allowedNodeEnvironmentFlags } = require("process");
+const { stripHtml } = require('string-strip-html')
 
 const PostController = {
   form: async (req, res, next) => {
@@ -35,12 +36,14 @@ const PostController = {
         .populate({ path: "user", select: ["nama", "email", "image"] })
         .exec()
       const createdAt = posts.map(post => moment(post.createdAt).calendar() )
+      const snippet = posts.map(post => stripHtml(post.body).result)
       res.render("posts/post", {
         title: "Halaman Post",
         layout: "layouts/main",
         posts,
         cekNav,
         createdAt,
+        snippet,
         msg: req.flash('success')
       });
     } catch (err) {
@@ -109,7 +112,7 @@ const PostController = {
         }
         const user = await User.findById(res.locals.user.id);
         const title = escapeHtml(req.body.title)
-        const body = escapeHtml(req.body.body)
+        const body = req.body.body
         const category = escapeHtml(req.body.category)
         const postData = {
           title,
