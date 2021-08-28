@@ -34,7 +34,7 @@
               <div class="comment-warp d-flex card-text">
                   <% if (user.id == post.user._id || user.id == element.user._id) { %>
                     <div class="card-text dropup d-flex">
-                      <img style="width: 50px; height: 50px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle" src="<%= element.user.image %>" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      <img style="width: 50px; height: 50px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle me-2" src="<%= element.user.image %>" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                       <p class="card-text">
                         <span class="fw-bold"><%= element.user.nama %> </span> <br> <span class="fw-normal"><%= element.body  %></span>
                       </p>
@@ -47,7 +47,7 @@
                       </ul>
                     </div>
                   <% }else{ %>
-                    <img style="width: 50px; height: 50px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle" src="<%= element.user.image %>">
+                    <img style="width: 50px; height: 50px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle me-2" src="<%= element.user.image %>">
                     <p><span class="fw-bold"><%= element.user.nama %></span> <br><span class="fw-normal"><%= element.body %></span></p>
                   <% } %> 
                 
