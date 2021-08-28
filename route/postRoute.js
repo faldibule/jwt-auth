@@ -23,11 +23,13 @@ route.get("/post/form-post", PostController.form);
 route.get("/post/detail/:id", PostController.detail);
 route.get("/post/update/:id", PostController.updateForm);
 route.get('/post/search', PostController.search)
-route.delete("/post", 
+route.delete("/post",
+        verifyToken,
         getUserByToken, 
         PostController.delete);
 
 route.post("/post",
+        verifyToken,
         getUserByToken,
         upload.single("image"),
         postValidator,
