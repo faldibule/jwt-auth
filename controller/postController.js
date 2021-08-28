@@ -14,7 +14,7 @@ const PostController = {
   form: async (req, res, next) => {
     const cekNav = res.locals.nav;
     const tags = await Tag.find();
-    const category = ["Code", "Tutorial", "History", "Math"];
+    const category = ["Code", "Tutorial", "History", "Math", "Entertainment", "Information"];
     let x = 0;
     res.render("posts/form-post", {
       title: "Halaman Post",
@@ -83,7 +83,7 @@ const PostController = {
     if(!errors.isEmpty()){
       const cekNav = res.locals.nav;
       const tags = await Tag.find();
-      const category = ["Code", "Tutorial", "History", "Math"];
+      const category = ["Code", "Tutorial", "History", "Math", "Entertainment", "Information"];
       let x = 0;
       res.render("posts/form-post", {
         title: "Halaman Post",
@@ -146,7 +146,7 @@ const PostController = {
       const cekNav = res.locals.nav;
       const post = await Post.findOne({ _id: req.params.id }).populate({ path: "tags", select: "tag" });
       const tags = await Tag.find();
-      const category = ["Code", "Tutorial", "History", "Math"];
+      const category = ["Code", "Tutorial", "History", "Math", "Entertainment", "Information"];
       let unselected = tags
                         .map(tag => tag.tag)
                         .filter(x => !post.tags
@@ -174,7 +174,7 @@ const PostController = {
       try {
         const cekNav = res.locals.nav;
         const tags = await Tag.find();
-        const category = ["Code", "Tutorial", "History", "Math"];
+        const category = ["Code", "Tutorial", "History", "Math", "Entertainment", "Information"];
         let unselected = tags
                         .map(tag => tag.tag)
                         .filter(x => !req.body.tags
