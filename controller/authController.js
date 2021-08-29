@@ -5,10 +5,9 @@ const { validationResult } = require("express-validator");
 
 const AuthController = {
   loginPage: (req, res) => {
-    res.locals.cekNav = null;
     res.locals.loginError = null;
     res.locals.regisSuccess = null;
-    res.render("authPage", {
+    res.render("auth/auth", {
       title: "Halaman Auth",
       layout: "layouts/auth",
       old: {},
@@ -19,10 +18,9 @@ const AuthController = {
     try {
       const user = await User.findOne({ email: req.body.email });
       if (!user) {
-        res.locals.loginError = "Email Belum Terdaftar";
+        res.locals.loginError = 'Login Gagal';
         res.locals.regisSuccess = null;
-        res.locals.cekNav = null;
-        return res.render("authPage", {
+        return res.render("auth/auth", {
           title: "Halaman Auth",
           layout: "layouts/auth",
           old: {},
@@ -31,10 +29,9 @@ const AuthController = {
 
       const cekPassword = await bcrypt.compare(req.body.password, user.password);
       if (!cekPassword) {
-        res.locals.loginError = "Password Salah";
+        res.locals.loginError = 'Login Gagal';
         res.locals.regisSuccess = null;
-        res.locals.cekNav = null;
-        return res.render("authPage", {
+        return res.render("auth/auth", {
           title: "Halaman Auth",
           layout: "layouts/auth",
           old: {},
@@ -42,9 +39,9 @@ const AuthController = {
       }
 
       //kirim jwt
-      const token = jwt.sign({ _id: user._id }, "aokwodjaowjdoajwdoajwodjao");
+      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
       res.cookie("userToken", token, { httpOnly: true, maxAge: 1000000 });
-      res.redirect("/");
+      res.redirect("/post");
     } catch (error) {
       console.log(error);
     }
@@ -54,13 +51,12 @@ const AuthController = {
     const errors = validationResult(req);
     if(!errors.isEmpty()){
       res.locals.loginError = null;
-      res.locals.regisSuccess = null
-      res.locals.cekNav = null;
-      res.render("authPage", {
+      res.locals.regisSuccess = null;
+      res.render("auth/auth", {
         title: "Halaman Auth",
         layout: "layouts/auth",
-        errors: errors.array(),
-        old: req.body
+        old: req.body,
+        errors: errors.array()
       });
     }else{
       try {
@@ -79,9 +75,8 @@ const AuthController = {
         const isSuccess = await User.insertMany(userData);
         if(isSuccess){
           res.locals.loginError = null;
-          res.locals.regisSuccess = 'Berhasil Registrasi, Silahkan Login disini!';
-          res.locals.cekNav = null;
-          res.render("authPage", {
+          res.locals.regisSuccess = null;
+          res.render("auth/auth", {
             title: "Halaman Auth",
             layout: "layouts/auth",
             old: {},
