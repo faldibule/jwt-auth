@@ -26,7 +26,7 @@ const regisValidator = [
                 min: 8,
                 max: 12
             })
-        .withMessage('Password minimal 8 karakter dan maksimal 12 karakter'), 
+        .withMessage('minimal 8 dan maksimal 12 karakter'), 
         
     check('nama')
         .isAlpha('en-US', {

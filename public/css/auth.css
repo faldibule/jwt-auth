@@ -70,7 +70,7 @@ form.sign-in-form {
   max-width: 380px;
   width: 100%;
   background-color: #f0f0f0;
-  margin: 10px 0;
+  margin: 15px 0px;
   height: 55px;
   border-radius: 55px;
   display: grid;
@@ -142,13 +142,14 @@ form.sign-in-form {
   color: #fff;
   text-transform: uppercase;
   font-weight: 600;
-  margin: 10px 0;
+  margin: 30px 0px;
   cursor: pointer;
   transition: 0.5s;
 }
 
 .btn:hover {
   background-color: #c9c9c9;
+  color: black;
 }
 .panels-container {
   position: absolute;

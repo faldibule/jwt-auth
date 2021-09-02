@@ -11,6 +11,7 @@ const AuthController = {
       title: "Halaman Auth",
       layout: "layouts/auth",
       old: {},
+      errors: undefined
     });
   },
 
@@ -24,6 +25,7 @@ const AuthController = {
           title: "Halaman Auth",
           layout: "layouts/auth",
           old: {},
+          errors: undefined
         });
       }
 
@@ -35,6 +37,7 @@ const AuthController = {
           title: "Halaman Auth",
           layout: "layouts/auth",
           old: {},
+          errors: undefined
         });
       }
 
@@ -56,13 +59,13 @@ const AuthController = {
         title: "Halaman Auth",
         layout: "layouts/auth",
         old: req.body,
-        errors: errors.array()
+        errors: errors.mapped()
       });
     }else{
       try {
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        const image = 'https://res.cloudinary.com/bdonglot/image/upload/v1629872092/wbmznxyuvdfhph2gkmkn.jpg'
-        const image_id = 'wbmznxyuvdfhph2gkmkn'
+        const image = process.env.IMAGE_DEFAULT_URL
+        const image_id = process.env.IMAGE_DEFAULT_ID
         const userData = {
           nama: req.body.nama,
           email: req.body.email,
@@ -75,11 +78,12 @@ const AuthController = {
         const isSuccess = await User.insertMany(userData);
         if(isSuccess){
           res.locals.loginError = null;
-          res.locals.regisSuccess = null;
+          res.locals.regisSuccess = 'Berhasil Daftar';
           res.render("auth/auth", {
             title: "Halaman Auth",
             layout: "layouts/auth",
             old: {},
+            errors: undefined
           });
         }
       } catch (err) {

@@ -9,7 +9,7 @@
             <% if (regisSuccess) { %>
             <div style="color: #198754;"><%= regisSuccess %></div>
             <% } %>
-            <% if (typeof errors != 'undefined') { %>
+            <% if (errors !== undefined) { %>
               <div style="color: #dc3545;">
                   <p align='center'>Terdapat Kesalahan Dalam Registrasi!</p>
               </div>
@@ -23,37 +23,91 @@
             <input type="password" placeholder="Password" name="password" />
           </div>
           <input type="submit" value="Login" class="btn solid" />
-          <p class="social-text">Auth Template by True Coder</p>
         </form>
         <form action="/auth/register" method="post" class="sign-up-form">
           <h2 class="title">Sign up</h2>
-          <% if (typeof errors != 'undefined') { %>
-            <div style="color: #dc3545;">
-                <ul>
-                    <% errors.forEach(err => { %>
-                    <li><%= err.msg %> </li>
-                    <% }) %>
-                </ul>
-            </div>
+          
+          <% if (errors !== undefined ) { %>
+            <% if (errors.nama !== undefined) { %>
+              <div class="input-field" style="border: 1px solid red;">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Nama" name="nama" value="<%= old.nama || '' %>" required /><br>
+                <small style="color: red;"><%= errors.nama.msg %></small>
+              </div>
+            <% }else{ %>
+              <div class="input-field" style="border: 1px solid green;">
+                <i class="fas fa-user"></i>
+                <input type="text" placeholder="Nama" name="nama" value="<%= old.nama || '' %>" required />
+              </div>
             <% } %>
-          <div class="input-field">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="Nama" name="nama" value="<%= old.nama || '' %>" required />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-envelope"></i>
-            <input type="email" placeholder="Email" name="email" value="<%= old.email || '' %>" required />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Password" name="password" value="<%= old.password || '' %>" required />
-          </div>
-          <div class="input-field">
-            <i class="fas fa-lock"></i>
-            <input type="password" placeholder="Repeat Password" name="r_password" value="<%= old.r_password || '' %>"required />
-          </div>
+          <% }else{ %>
+            <div class="input-field">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="Nama" name="nama" value="<%= old.nama || '' %>" required />
+            </div>
+          <% } %> 
+          
+          <% if (errors !== undefined) { %>
+            <% if (errors.email !== undefined) { %>
+              <div class="input-field" style="border: 1px solid red;">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email" name="email" value="<%= old.email || '' %>" required /><br>
+                <small style="color: red;"><%= errors.email.msg %></small>
+              </div>
+            <% }else{ %>
+              <div class="input-field" style="border: 1px solid green;">
+                <i class="fas fa-envelope"></i>
+                <input type="email" placeholder="Email" name="email" value="<%= old.email || '' %>" required />
+              </div>
+            <% } %> 
+          <% }else{ %>
+            <div class="input-field">
+              <i class="fas fa-envelope"></i>
+              <input type="email" placeholder="Email" name="email" value="<%= old.email || '' %>" required />
+            </div>
+          <% } %> 
+          
+          <% if (errors !== undefined) { %>
+            <% if (errors.password !== undefined) { %>
+              <div class="input-field" style="border: 1px solid red;">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" name="password" value="<%= old.password || '' %>" required /><br>
+                <small style="color: red;"><%= errors.password.msg %></small>
+              </div>
+            <% }else{ %>
+              <div class="input-field" style="border: 1px solid green;">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Password" name="password" value="<%= old.password || '' %>" required /><br>
+              </div>
+            <% } %> 
+          <% }else{ %>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Password" name="password" value="<%= old.password || '' %>" required /><br>
+            </div>
+          <% } %> 
+          
+          <% if (errors !== undefined) { %>
+            <% if (errors.password !== undefined) { %>
+              <div class="input-field" style="border: 1px solid red;">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Repeat Password" name="r_password" value="<%= old.r_password || '' %>"required /> <br>
+                <small style="color: red;"><%= errors.password.msg %></small>
+              </div>
+            <% }else{ %>
+              <div class="input-field" style="border: 1px solid green;">
+                <i class="fas fa-lock"></i>
+                <input type="password" placeholder="Repeat Password" name="r_password" value="<%= old.r_password || '' %>"required /> <br>
+              </div>
+            <% } %>
+          <% }else{ %>
+            <div class="input-field">
+              <i class="fas fa-lock"></i>
+              <input type="password" placeholder="Repeat Password" name="r_password" value="<%= old.r_password || '' %>"required /> <br>
+            </div>
+          <% } %> 
+           
           <input type="submit" class="btn" value="Sign up" />
-          <p class="social-text">Auth Template by True Coder</p>
         </form>
       </div>
     </div>
@@ -68,6 +122,7 @@
           <button class="btn transparent" id="sign-up-btn">
             Sign up
           </button>
+          <p class="social-text">Auth Template by True Coder</p>
         </div>
         <img src="/auth/log.svg" class="image" alt="" />
       </div>
@@ -80,6 +135,7 @@
           <button class="btn transparent" id="sign-in-btn">
             Sign in
           </button>
+          <p class="social-text">Auth Template by True Coder</p>
         </div>
         <img src="/auth/register.svg" class="image" alt="" />
       </div>
