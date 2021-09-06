@@ -23,6 +23,12 @@ route.get("/post/form-post", PostController.form);
 route.get("/post/detail/:id", PostController.detail);
 route.get("/post/update/:id", PostController.updateForm);
 route.get('/post/search', PostController.search)
+
+route.post('/post/my-post', 
+        verifyToken,
+        getUserByToken,
+        cekNav,
+        PostController.myPost)
 route.delete("/post",
         verifyToken,
         getUserByToken, 

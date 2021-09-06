@@ -5,18 +5,21 @@
             <input type="hidden" name="userId" value="<%= user.id %>">
             <input type="file" name="image" id="imgupload" style="display:none"  onchange="form.submit()"/>
         </form>
-        <div class="d-flex justify-content-center mt-2">
+        <div class="d-flex justify-content-center mt-2 mx-2">
             <button class="btn btn-sm btn-primary me-3" id="OpenImgUpload"><i class="bi bi-person"></i> Change Profile Picture</button>
-            <button type="button" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#editProfile">
+            <button type="button" class="btn btn-primary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#editProfile">
             Edit Profile
             </button>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editPassword">
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editPassword">
             Ganti Password
             </button>
         </div>
         <h1 class="display-4"><%= user.nama  %></h1>
         <p class="lead"><%= user.email %> </p>
-        <p class="text-secondary">You Have <%= user.posts.length %> Post</p>
+        <form action="/post/my-post" method="post" id="myPost">
+          <input type="hidden" name="userId" value="<%= user.id %>">
+          <p style="cursor: pointer;" class="text-secondary" onclick="document.getElementById('myPost').submit(); return false"><u>Yout have <%= user.posts.length %> Post</u></p>
+        </form>
     </div>
 </div>
 <div class="row my-3">

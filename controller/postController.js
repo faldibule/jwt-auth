@@ -51,6 +51,31 @@ const PostController = {
     }
   },
 
+  myPost: async(req, res, next) => {
+    try {
+      const cekNav = res.locals.nav;
+      const posts = await Post.find({user:req.body.userId})
+        .sort({ _id: -1 })
+        .populate({ path: "tags", select: "tag" })
+        .populate({ path: "user", select: ["nama", "email", "image"] })
+        .exec();
+      const createdAt = posts.map(post => moment(post.createdAt).calendar() )
+      const snippet = posts.map(post => stripHtml(post.body).result)
+      req.flash('success', `Your Post`)
+      res.render("posts/post", {
+        title: "Halaman Post",
+        layout: "layouts/main",
+        posts,
+        cekNav,
+        msg:req.flash('success'),
+        createdAt,
+        snippet
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   search: async (req, res, next) => {
     try {
       const cekNav = res.locals.nav;
@@ -60,10 +85,12 @@ const PostController = {
             $regex: '.*'+req.query.search+'.*'
           }
         })
+        .sort({ _id: -1 })
         .populate({ path: "tags", select: "tag" })
         .populate({ path: "user", select: ["nama", "email", "image"] })
         .exec();
       const createdAt = posts.map(post => moment(post.createdAt).calendar() )
+      const snippet = posts.map(post => stripHtml(post.body).result)
       req.flash('success', `Ditemukan ${posts.length} hasil dari kata Kunci '${req.query.search}'`)
       res.render("posts/post", {
         title: "Halaman Post",
@@ -72,6 +99,7 @@ const PostController = {
         cekNav,
         msg:req.flash('success'),
         createdAt,
+        snippet
       });
     } catch (err) {
       console.log(err);
