@@ -313,6 +313,9 @@ const PostController = {
       }
       user.posts.pull(post._id);
       await user.save();
+
+      await Comment.deleteMany({post: req.body.id})
+
       if(post.image != 'https://res.cloudinary.com/bdonglot/image/upload/v1629700706/sa21pvyktvltvlqprgs8.png'){
         await cloudinary.uploader.destroy(post.image_id)
         await Post.deleteOne({ _id: post._id });
