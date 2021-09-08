@@ -2,6 +2,7 @@
     <div class="forms-container">
       <div class="signin-signup">
         <form action="/auth/login" method="post" class="sign-in-form">
+          <img src="/img/logo.png" style="width: 50px; margin-right: 10px;" alt="logo">
           <h2 class="title">Sign in</h2>
           <% if (loginError) { %>
             <div style="color: #dc3545;"><%= loginError %></div>
@@ -25,6 +26,7 @@
           <input type="submit" value="Login" class="btn solid" />
         </form>
         <form action="/auth/register" method="post" class="sign-up-form">
+          <img src="/img/logo.png" style="width: 50px; margin-right: 10px;" alt="logo">
           <h2 class="title">Sign up</h2>
           
           <% if (errors !== undefined ) { %>
