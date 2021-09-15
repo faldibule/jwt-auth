@@ -16,10 +16,9 @@
         </div>
         <h1 class="display-4"><%= user.nama  %></h1>
         <p class="lead"><%= user.email %> </p>
-        <form action="/post/my-post" method="post" id="myPost">
-          <input type="hidden" name="userId" value="<%= user.id %>">
-          <p style="cursor: pointer;" class="text-secondary" onclick="document.getElementById('myPost').submit(); return false"><u>Yout have <%= user.posts.length %> Post</u></p>
-        </form>
+        <a href="/post/my-post/<%= user.id %>" class="text-secondary">
+          <u>Yout have <%= user.posts.length %> Post</u>
+        </a>
     </div>
 </div>
 <div class="row my-3">

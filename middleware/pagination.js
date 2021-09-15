@@ -48,7 +48,7 @@ const paginate = {
             .populate({ path: "tags", select: "tag" })
             .populate({ path: "user", select: ["nama", "email", "image"] })
             .exec();
-        if(endIndex < await model.countDocuments()){
+        if(endIndex < await result.data.length){
             result.next = {
                 page: page + 1,
                 limit
@@ -77,7 +77,7 @@ const paginate = {
             .populate({ path: "tags", select: "tag" })
             .populate({ path: "user", select: ["nama", "email", "image"] })
             .exec();
-        if(endIndex < await model.countDocuments()){
+        if(endIndex < await model.countDocuments({user:userId})){
             result.next = {
                 page: page + 1,
                 limit

@@ -60,10 +60,11 @@ const PostController = {
     try {
       const cekNav = res.locals.nav;
       const currentPage = parseInt(req.query.page)
-      const data = await paginate.myPost(Post, currentPage, 3, req.body.userId)
+      const data = await paginate.myPost(Post, currentPage, 3, req.params.userId)
       const posts = data.data
       const page = {
-        url: '/myPost' || null,
+        userId: req.params.userId,
+        search: req.query.search,
         totalPage: data.totalPage,
         next: data.next || null,
         prev: data.previous || null,
@@ -71,7 +72,7 @@ const PostController = {
       const createdAt = posts.map(post => moment(post.createdAt).calendar() )
       const snippet = posts.map(post => stripHtml(post.body).result)
       req.flash('success', `Your Post`)
-      res.render("posts/post", {
+      res.render("posts/my-post", {
         title: "Halaman Post",
         layout: "layouts/main",
         posts,
