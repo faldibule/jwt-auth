@@ -37,6 +37,20 @@
         </div>
       </div>
       <% }) %> 
+      <div class="row-fluid my-3">
+        <div class="col-md-6 offset-md-3 align-self-center">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination">
+              <% if (page.prev != null) { %>
+                <li class="page-item"><a class="page-link" href="http://localhost:3000/post?page=<%= page.prev.page  %>">Previous</a></li>
+              <% } %>
+              <% if (page.next != null) { %>
+                <li class="page-item"><a class="page-link" href="http://localhost:3000/post?page=<%= page.next.page  %>">Next</a></li>
+              <% } %>
+            </ul>
+          </nav>
+        </div>
+      </div>
       <% }else{ %>
         <div class="alert alert-danger mt-3" role="alert">
           Post Kosong!

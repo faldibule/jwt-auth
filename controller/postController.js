@@ -8,7 +8,8 @@ const moment = require('moment');
 const { validationResult } = require("express-validator");
 const escapeHtml = require('escape-html');
 const { allowedNodeEnvironmentFlags } = require("process");
-const { stripHtml } = require('string-strip-html')
+const { stripHtml } = require('string-strip-html');
+const paginate = require("../middleware/pagination");
 
 const PostController = {
   form: async (req, res, next) => {
@@ -29,12 +30,15 @@ const PostController = {
 
   find: async (req, res, next) => {
     try {
+      const currentPage = parseInt(req.query.page)
+      const data = await paginate(Post, currentPage, 3)
       const cekNav = res.locals.nav;
-      const posts = await Post.find()
-        .sort({ _id: -1 })
-        .populate({ path: "tags", select: "tag" })
-        .populate({ path: "user", select: ["nama", "email", "image"] })
-        .exec()
+      const posts = data.data;
+      const page = {
+        totalPage: data.totalPage,
+        next: data.next || null,
+        prev: data.previous || null,
+      }
       const createdAt = posts.map(post => moment(post.createdAt).calendar() )
       const snippet = posts.map(post => stripHtml(post.body).result)
       res.render("posts/post", {
@@ -44,6 +48,7 @@ const PostController = {
         cekNav,
         createdAt,
         snippet,
+        page,
         msg: req.flash('success')
       });
     } catch (err) {
