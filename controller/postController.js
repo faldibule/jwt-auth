@@ -31,7 +31,7 @@ const PostController = {
   find: async (req, res, next) => {
     try {
       const currentPage = parseInt(req.query.page)
-      const data = await paginate(Post, currentPage, 3)
+      const data = await paginate.find(Post, currentPage, 3)
       const cekNav = res.locals.nav;
       const posts = data.data;
       const page = {
@@ -59,11 +59,15 @@ const PostController = {
   myPost: async(req, res, next) => {
     try {
       const cekNav = res.locals.nav;
-      const posts = await Post.find({user:req.body.userId})
-        .sort({ _id: -1 })
-        .populate({ path: "tags", select: "tag" })
-        .populate({ path: "user", select: ["nama", "email", "image"] })
-        .exec();
+      const currentPage = parseInt(req.query.page)
+      const data = await paginate.myPost(Post, currentPage, 3, req.body.userId)
+      const posts = data.data
+      const page = {
+        url: '/myPost' || null,
+        totalPage: data.totalPage,
+        next: data.next || null,
+        prev: data.previous || null,
+      }
       const createdAt = posts.map(post => moment(post.createdAt).calendar() )
       const snippet = posts.map(post => stripHtml(post.body).result)
       req.flash('success', `Your Post`)
@@ -74,7 +78,8 @@ const PostController = {
         cekNav,
         msg:req.flash('success'),
         createdAt,
-        snippet
+        snippet,
+        page
       });
     } catch (err) {
       console.log(err);
@@ -83,28 +88,28 @@ const PostController = {
 
   search: async (req, res, next) => {
     try {
+      const currentPage = parseInt(req.query.page)
+      const data = await paginate.search(Post, currentPage, 3, req.query.search)
       const cekNav = res.locals.nav;
-      const posts = await Post.find(
-        {
-          title: {
-            $regex: '.*'+req.query.search+'.*'
-          }
-        })
-        .sort({ _id: -1 })
-        .populate({ path: "tags", select: "tag" })
-        .populate({ path: "user", select: ["nama", "email", "image"] })
-        .exec();
+      const posts = data.data
+      const page = {
+        search : req.query.search,
+        totalPage: data.totalPage,
+        next: data.next || null,
+        prev: data.previous || null,
+      }
       const createdAt = posts.map(post => moment(post.createdAt).calendar() )
       const snippet = posts.map(post => stripHtml(post.body).result)
-      req.flash('success', `Ditemukan ${posts.length} hasil dari kata Kunci '${req.query.search}'`)
-      res.render("posts/post", {
+      req.flash('success', `Berikut adalah hasil pencarian dari kata Kunci '${req.query.search}'`)
+      res.render("posts/search-post", {
         title: "Halaman Post",
         layout: "layouts/main",
         posts,
         cekNav,
         msg:req.flash('success'),
         createdAt,
-        snippet
+        snippet,
+        page
       });
     } catch (err) {
       console.log(err);
