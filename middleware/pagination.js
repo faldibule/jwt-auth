@@ -49,8 +49,16 @@ const paginate = {
             .populate({ path: "tags", select: "tag" })
             .populate({ path: "user", select: ["nama", "email", "image"] })
             .exec();
-        result.totalPage = Math.ceil(result.data.length / limit)
-        if(endIndex < await result.data.length){
+        result.totalPage = Math.ceil(await model.countDocuments({
+            title: {
+              $regex: '.*'+keyword+'.*'
+            }
+          }) / limit)
+        if(endIndex < await await model.countDocuments({
+            title: {
+              $regex: '.*'+keyword+'.*'
+            }
+          })){
             result.next = {
                 page: page + 1,
                 limit
