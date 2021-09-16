@@ -34,7 +34,11 @@ const PostController = {
       const data = await paginate.find(Post, currentPage, 3)
       const cekNav = res.locals.nav;
       const posts = data.data;
+      const startIndex = currentPage >= 3 ? currentPage - 1 :  1;
+      const endIndex = currentPage >= 3 ? currentPage + 1 > data.totalPage ? data.totalPage : currentPage + 1 : 3;
       const page = {
+        startIndex,
+        endIndex,
         currentPage: data.currentPage,
         totalPage: data.totalPage,
         next: data.next || null,

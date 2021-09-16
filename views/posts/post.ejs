@@ -44,12 +44,18 @@
               <% if (page.prev != null) { %>
                 <li class="page-item"><a class="page-link" href="https://blogopedia-app.herokuapp.com/post?page=<%= page.prev.page  %>">Previous</a></li>
               <% } %>
-              <% for( let i = 1; i <= page.totalPage; i++ ) { %>
+              <% if (page.startIndex >= 2) { %>
+                <li class="page-item disabled"><a class="page-link" disabled>...</a></li>
+              <% } %>
+              <% for( let i = page.startIndex; i <= page.endIndex; i++ ) { %>
                 <% if (i == page.currentPage) { %>
                   <li class="page-item active"><a href="https://blogopedia-app.herokuapp.com/post?page=<%= i %>" class="page-link"><%= i %></a></li>
                 <% }else{ %>
                   <li class="page-item"><a href="https://blogopedia-app.herokuapp.com/post?page=<%= i %>" class="page-link"><%= i %></a></li>
                 <% } %> 
+              <% } %>
+              <% if (page.endIndex <= page.totalPage - 1) { %>
+                <li class="page-item disabled"><a class="page-link">...</a></li>
               <% } %>
               <% if (page.next != null) { %>
                 <li class="page-item"><a class="page-link" href="https://blogopedia-app.herokuapp.com/post?page=<%= page.next.page  %>">Next</a></li>
