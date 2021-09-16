@@ -5,6 +5,7 @@ const paginate = {
             const startIndex = (page - 1) * limit;
             const endIndex = page * limit;
             const result = {}
+            result.currentPage = page;
             result.message = 'Data'
             result.totalPage = Math.ceil(await model.countDocuments() / limit)
             result.data = await model.find()
@@ -34,8 +35,8 @@ const paginate = {
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
         const result = {}
+        result.currentPage = page;
         result.message = 'Data'
-        result.totalPage = Math.ceil(await model.countDocuments() / limit)
         result.data = await model.find(
             {
               title: {
@@ -48,6 +49,7 @@ const paginate = {
             .populate({ path: "tags", select: "tag" })
             .populate({ path: "user", select: ["nama", "email", "image"] })
             .exec();
+        result.totalPage = Math.ceil(result.data.length / limit)
         if(endIndex < await result.data.length){
             result.next = {
                 page: page + 1,
@@ -68,8 +70,9 @@ const paginate = {
         const startIndex = (page - 1) * limit;
         const endIndex = page * limit;
         const result = {}
+        result.currentPage = page;
         result.message = 'Data'
-        result.totalPage = Math.ceil(await model.countDocuments() / limit)
+        result.totalPage = Math.ceil(await model.countDocuments({user:userId}) / limit)
         result.data = await model.find({user:userId})
             .skip(startIndex)
             .limit(limit)

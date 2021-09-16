@@ -35,6 +35,7 @@ const PostController = {
       const cekNav = res.locals.nav;
       const posts = data.data;
       const page = {
+        currentPage: data.currentPage,
         totalPage: data.totalPage,
         next: data.next || null,
         prev: data.previous || null,
@@ -63,8 +64,8 @@ const PostController = {
       const data = await paginate.myPost(Post, currentPage, 3, req.params.userId)
       const posts = data.data
       const page = {
+        currentPage: data.currentPage,
         userId: req.params.userId,
-        search: req.query.search,
         totalPage: data.totalPage,
         next: data.next || null,
         prev: data.previous || null,
@@ -94,6 +95,7 @@ const PostController = {
       const cekNav = res.locals.nav;
       const posts = data.data
       const page = {
+        currentPage: data.currentPage,
         search : req.query.search,
         totalPage: data.totalPage,
         next: data.next || null,
