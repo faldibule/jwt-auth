@@ -35,7 +35,7 @@ app.get("*", getUserByToken, cekNav);
 app.get("/", (req, res) => {
   const cekNav = res.locals.nav;
   res.render("index", {
-    title: "Halaman Index",
+    title: "Halaman About",
     layout: "layouts/main",
     cekNav,
   });
