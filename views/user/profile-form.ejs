@@ -1,11 +1,12 @@
-<div class="row">
-    <div class="col text-center mt-3">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center">
         <img style="width: 200px; height: 200px; object-fit:cover; object-position: center; " class="img-thumbnail rounded-circle" src="<%= user.image %>" alt="">
         <form action="/profile/foto?_method=PUT" method="post" enctype="multipart/form-data">
             <input type="hidden" name="userId" value="<%= user.id %>">
             <input type="file" name="image" id="imgupload" style="display:none"  onchange="form.submit()"/>
         </form>
-        <div class="d-flex justify-content-center mt-2 mx-2">
+        <div class="d-flex justify-content-center mt-2">
             <button class="btn btn-sm btn-primary me-3" id="OpenImgUpload"><i class="bi bi-person"></i> Change Profile Picture</button>
             <button type="button" class="btn btn-primary btn-sm me-3" data-bs-toggle="modal" data-bs-target="#editProfile">
             Edit Profile
@@ -37,7 +38,9 @@
     </div>
     <div class="col-md-4"></div>
 </div>
+</div>
 
+<br><br><br>
 
 
 
