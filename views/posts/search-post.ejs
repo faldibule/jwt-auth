@@ -42,17 +42,17 @@
             <nav aria-label="Page navigation example">
               <ul class="pagination">
                 <% if (page.prev != null) { %>
-                  <li class="page-item"><a class="page-link" href="https://blogopedia-app.herokuapp.com/post/search?search=<%= page.search %>&page=<%= page.prev.page  %>">Previous</a></li>
+                  <li class="page-item"><a class="page-link" href="https://jwt-auth-production.up.railway.app/post/search?search=<%= page.search %>&page=<%= page.prev.page  %>">Previous</a></li>
                 <% } %>
                 <% for( let i = 1; i <= page.totalPage; i++ ) { %>
                   <% if (i == page.currentPage) { %>
-                    <li class="page-item active"><a href="https://blogopedia-app.herokuapp.com/post/search?search=<%= page.search %>&page=<%= i %>" class="page-link"><%= i %></a></li>
+                    <li class="page-item active"><a href="https://jwt-auth-production.up.railway.app/post/search?search=<%= page.search %>&page=<%= i %>" class="page-link"><%= i %></a></li>
                   <% }else{ %>
-                    <li class="page-item"><a href="https://blogopedia-app.herokuapp.com/post/search?search=<%= page.search %>&page=<%= i %>" class="page-link"><%= i %></a></li>
+                    <li class="page-item"><a href="https://jwt-auth-production.up.railway.app/post/search?search=<%= page.search %>&page=<%= i %>" class="page-link"><%= i %></a></li>
                   <% } %> 
                 <% } %>
                 <% if (page.next != null) { %>
-                    <li class="page-item"><a class="page-link" href="https://blogopedia-app.herokuapp.com/post/search?search=<%= page.search %>&page=<%= page.next.page  %>">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="https://jwt-auth-production.up.railway.app/post/search?search=<%= page.search %>&page=<%= page.next.page  %>">Next</a></li>
                 <% } %>
               </ul>
             </nav>
