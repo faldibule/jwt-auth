@@ -52,3 +52,5 @@ app.use((req, res) => {
 app.listen(port, () => {
   console.log(`Connected to port ${port}`);
 });
+
+export default app
